@@ -1,7 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:learnify/splash_screen.dart';
 
-void main() {
+void main() async {
+  try {
+    await Firebase.initializeApp();
+    print('firebase initialized');
+  } catch (e) {
+    print(e);
+  }
   runApp(const MyApp());
 }
 

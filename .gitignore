@@ -33,6 +33,13 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Ignore specific files
+android/app/build/intermediates/assets/debug/flutter_assets/kernel_blob.bin
+android/app/build/outputs/apk/debug/app-debug.apk
+
+# Android-Specific
+android/app/google-services.json
+
 # Symbolication related
 app.*.symbols
 
