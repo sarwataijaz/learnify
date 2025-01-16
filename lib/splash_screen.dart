@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Timer(Duration(seconds: 2),
+        Timer(Duration(seconds: 1),
             () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => SignIn()),

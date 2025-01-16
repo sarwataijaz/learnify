@@ -2,20 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learnify/colors.dart';
-import 'package:learnify/sign_up.dart';
+import 'package:learnify/sign_in.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
-
+class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+
   bool _hidePassword = true;
 
   @override
@@ -59,7 +61,7 @@ class _SignInState extends State<SignIn> {
                 Align(
                   alignment: Alignment(0, -0.45),
                   child: Text(
-                    'Hello!',
+                    'Create Account',
                     style: GoogleFonts.lato(
                         fontSize: 36,
                         color: Colors.black,
@@ -67,21 +69,10 @@ class _SignInState extends State<SignIn> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Align(
-                  alignment: Alignment(0, -0.35),
-                  child: Text(
-                    'Login to your account',
-                    style: GoogleFonts.lato(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 320,
+                  top: 280,
                   child: Form(
                     key: _formKey,
                     child: Container(
@@ -124,6 +115,98 @@ class _SignInState extends State<SignIn> {
                                   padding: const EdgeInsets.only(
                                       left: 10.0, top: 10.0),
                                   child: Icon(Icons.email_rounded, color: Colors.black,),
+                                ),
+                                hintStyle: GoogleFonts.lato(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xfffD4D4D4),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Full Name',
+                            style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                            height: 55,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              // Cylindrical border
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  // Shadow color
+                                  spreadRadius: 2,
+                                  // How far the shadow spreads
+                                  blurRadius: 10,
+                                  // How soft the shadow is
+                                  offset: Offset(0,
+                                      5), // Offset: (x, y) - horizontal and vertical
+                                ),
+                              ],
+                            ),
+                            child: TextField(
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                hintText: 'your name',
+                                icon: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, top: 10.0),
+                                  child: Icon(Icons.person, color: Colors.black,),
+                                ),
+                                hintStyle: GoogleFonts.lato(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xfffD4D4D4),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Phone Number',
+                            style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                            height: 55,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              // Cylindrical border
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  // Shadow color
+                                  spreadRadius: 2,
+                                  // How far the shadow spreads
+                                  blurRadius: 10,
+                                  // How soft the shadow is
+                                  offset: Offset(0,
+                                      5), // Offset: (x, y) - horizontal and vertical
+                                ),
+                              ],
+                            ),
+                            child: TextField(
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                hintText: 'Phone Number',
+                                icon: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, top: 10.0),
+                                  child: Icon(Icons.call, color: Colors.black,),
                                 ),
                                 hintStyle: GoogleFonts.lato(
                                   fontSize: 16,
@@ -197,25 +280,12 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              'Forgot password?',
-                              style: GoogleFonts.lato(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
                             height: 40,
                           ),
                           ElevatedButton.icon(
                             onPressed: () {},
                             label: Text(
-                              "Sign In",
+                              "Sign Up",
                               style: GoogleFonts.lato(
                                   fontSize: 14,
                                   color: Colors.white,
@@ -225,7 +295,7 @@ class _SignInState extends State<SignIn> {
                                 backgroundColor: AppColors.primaryGreen,
                                 foregroundColor: Colors.white),
                             icon: const Icon(
-                              Icons.login_outlined,
+                              Icons.new_label_outlined,
                               color: Colors.white,
                             ),
                           ),
@@ -237,25 +307,26 @@ class _SignInState extends State<SignIn> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: "Don't have an account? ",
-                                      style: GoogleFonts.lato(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500)
-                                  ),
-                                  TextSpan(
-                                      text: "Sign up",
+                                      text: "Already have an account? ",
                                       style: GoogleFonts.lato(
                                           fontSize: 14,
-                                          color: AppColors.primaryGreen,
-                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500)
+                                  ),
+                                  TextSpan(
+                                    text: "Sign in",
+                                    style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        color: AppColors.primaryGreen,
+                                        fontWeight: FontWeight.w500,
                                         decoration: TextDecoration.underline
-                                      ),
+                                    ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
+                                      print('going to signin page');
                                         Navigator.pushReplacement(
                                           context,
-                                          MaterialPageRoute(builder: (context) => SignUp()),
+                                          MaterialPageRoute(builder: (context) => SignIn()),
                                         );
                                       },
                                   ),
