@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learnify/colors.dart';
-import 'package:learnify/sign_in.dart';
+import 'package:learnify/Auth/database_service.dart';
+import 'package:learnify/Colors/colors.dart';
+import 'package:learnify/Screens/sign_in.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -18,7 +20,9 @@ class _SignUpState extends State<SignUp> {
   final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
 
+  DatabaseService _db = DatabaseService();
   bool _hidePassword = true;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +158,7 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
                             child: TextField(
-                              controller: _emailController,
+                              controller: _fullNameController,
                               decoration: InputDecoration(
                                 hintText: 'your name',
                                 icon: Padding(
@@ -200,7 +204,11 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
                             child: TextField(
-                              controller: _emailController,
+                              controller: _phoneNumberController,
+                              keyboardType: TextInputType.number, // Sets the keyboard to numeric
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly, // Allows only numeric input
+                              ],
                               decoration: InputDecoration(
                                 hintText: 'Phone Number',
                                 icon: Padding(
@@ -283,8 +291,14 @@ class _SignUpState extends State<SignUp> {
                             height: 40,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
-                            label: Text(
+                            onPressed: () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _storeData();
+                            },
+                            label: _isLoading ?  CircularProgressIndicator(backgroundColor: AppColors.background,)
+                                :  Text(
                               "Sign Up",
                               style: GoogleFonts.lato(
                                   fontSize: 14,
@@ -344,6 +358,42 @@ class _SignUpState extends State<SignUp> {
           ],
         ),
       ),
+    );
+  }
+
+  _storeData() async {
+    String msg = '';
+    try {
+      if (_formKey.currentState!.validate()) {
+        msg = await _db.addUser(email: _emailController.text,
+            name: _fullNameController.text,
+            number: int.parse(_phoneNumberController.text),
+            password: _passwordController.text);
+        if (msg == 'success') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(
+              'Data stored successfully, Sign In to continue',
+              style: TextStyle(fontSize: 16, color: Colors.black),),
+              backgroundColor: Colors.white,),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn()),
+          );
+        }
+      } else {
+        msg = 'Please fill out all the fields!';
+      }
+    } catch(e) {
+     msg = e.toString();
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg,
+          style: TextStyle(fontSize: 14, color: Colors.black),),
+          backgroundColor: Colors.white,)
     );
   }
 }

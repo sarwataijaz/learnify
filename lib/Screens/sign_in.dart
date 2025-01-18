@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learnify/colors.dart';
-import 'package:learnify/sign_up.dart';
+import 'package:learnify/Colors/colors.dart';
+import 'package:learnify/Screens/home_screen.dart';
+import 'package:learnify/Screens/sign_up.dart';
+
+import '../Auth/database_service.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -17,6 +20,9 @@ class _SignInState extends State<SignIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _hidePassword = true;
+  bool _isLoading = false;
+
+  DatabaseService _db = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -213,21 +219,44 @@ class _SignInState extends State<SignIn> {
                             height: 40,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
-                            label: Text(
+                            onPressed: _isLoading
+                                ? null // Disable button while loading
+                                : () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _login();
+                            },
+                            label: _isLoading
+                                ? Text(
+                              "Signing In...",
+                              style: GoogleFonts.lato(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                                : Text(
                               "Sign In",
                               style: GoogleFonts.lato(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryGreen,
                                 foregroundColor: Colors.white),
-                            icon: const Icon(
-                              Icons.login_outlined,
-                              color: Colors.white,
-                            ),
+                            icon: _isLoading
+                                ? SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                backgroundColor: AppColors.background,
+                              ),
+                            )
+                                : Icon(Icons.login, color: Colors.white,),
                           ),
                           const SizedBox(
                             height: 10,
@@ -272,6 +301,51 @@ class _SignInState extends State<SignIn> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _login() async {
+    String msg = '';
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true; // Start loading indicator
+      });
+
+      try {
+        msg = await _db.verifyCredentials(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        if (msg == 'success') {
+          setState(() {
+            _isLoading = false;
+          });
+          String name = await _db.getUser(_emailController.text);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen(name: name)),
+          );
+          return; // Stop execution here to prevent setting _isLoading to false
+        }
+      } catch (e) {
+        msg = "An error occurred: $e";
+      }
+    } else {
+      msg = "Please fill out both fields.";
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          msg,
+          style: TextStyle(fontSize: 16, color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
       ),
     );
   }
