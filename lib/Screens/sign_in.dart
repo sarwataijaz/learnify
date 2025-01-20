@@ -6,6 +6,7 @@ import 'package:learnify/Screens/home_screen.dart';
 import 'package:learnify/Screens/sign_up.dart';
 
 import '../Auth/database_service.dart';
+import 'bottom_navigation.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -324,7 +325,7 @@ class _SignInState extends State<SignIn> {
           String name = await _db.getUser(_emailController.text);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen(name: name)),
+            MaterialPageRoute(builder: (context) => BottomNavigation(name: name)),
           );
           return; // Stop execution here to prevent setting _isLoading to false
         }
