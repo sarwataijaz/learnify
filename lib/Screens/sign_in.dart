@@ -322,7 +322,7 @@ class _SignInState extends State<SignIn> {
           setState(() {
             _isLoading = false;
           });
-          String name = await _db.getUser(_emailController.text);
+          String name = await _db.getUserFullName(_emailController.text);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => BottomNavigation(name: name)),

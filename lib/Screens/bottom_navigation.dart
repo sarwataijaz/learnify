@@ -56,7 +56,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.heart_broken),
+              icon: Icon(Icons.favorite),
               label: 'Wishlist',
             ),
             BottomNavigationBarItem(
