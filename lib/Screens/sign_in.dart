@@ -6,7 +6,7 @@ import 'package:learnify/Screens/home_screen.dart';
 import 'package:learnify/Screens/sign_up.dart';
 
 import '../Auth/database_service.dart';
-import 'bottom_navigation.dart';
+import '../Navigations/bottom_navigation.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
                     Container(
                       alignment: Alignment.topLeft,
                       height: 300,
-                      width: 170,
+                      width: 148,
                       child: Image.asset(
                         'assets/asset1.png',
                         fit: BoxFit.fill,

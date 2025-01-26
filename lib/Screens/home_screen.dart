@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learnify/Screens/profile_screen.dart';
+import 'package:learnify/Screens/Profile/profile_screen.dart';
+import 'package:learnify/Screens/computer_basics.dart';
 
 import '../Colors/colors.dart';
 
@@ -126,9 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 30.0),
                                       child: Container(
-                                        width: 150,
+                                        width: MediaQuery.sizeOf(context).width * 0.32,
                                         child: Text(
-                                          'What would like to learn today?',
+                                          'What would you like to learn today?',
                                           style: GoogleFonts.lato(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w400,
@@ -308,7 +309,28 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 210,
               height: 35,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  switch(title) {
+                    case 'Basics of Computer':
+                      {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => ComputerBasics()));
+                        break;
+                      }
+                    case 'Ui Ux':
+                      {
+                        // Navigator.pushReplacement(context, MaterialPageRoute(
+                        //     builder: (context) => ComputerBasics()));
+                        break;
+                      }
+                    case 'Flutter':
+                      {
+                        // Navigator.pushReplacement(context, MaterialPageRoute(
+                        //     builder: (context) => ComputerBasics()));
+                        break;
+                      }
+                  }
+                },
                 label: Text(
                   "Start Learning",
                   style: GoogleFonts.lato(

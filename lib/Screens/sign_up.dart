@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp> {
                   child: Text(
                     'Create Account',
                     style: GoogleFonts.lato(
-                        fontSize: 36,
+                        fontSize: 30,
                         color: Colors.black,
                         fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 280,
+                  top: 260,
                   child: Form(
                     key: _formKey,
                     child: Container(
