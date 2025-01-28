@@ -211,7 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 label: 'Help & Support',
                 suffix: _arrow()),
             SizedBox(height: 10,),
-            Bars(prefix: Icons.logout, label: 'Logout', suffix: _arrow()),
+            Bars(prefix: Icons.logout, label: 'Logout', suffix: _arrow())
           ],
         ),
       );
@@ -260,40 +260,42 @@ class Bars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      margin: EdgeInsets.symmetric(horizontal: 23),
-      padding: EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.circular(30)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                prefix,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                label,
-                style: GoogleFonts.lato(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-          suffix,
-        ],
+    return Expanded(
+      child: Container(
+        height: 56,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        margin: EdgeInsets.symmetric(horizontal: 23),
+        padding: EdgeInsets.symmetric(horizontal: 25),
+        decoration: BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.circular(30)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  prefix,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  label,
+                  style: GoogleFonts.lato(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+            suffix,
+          ],
+        ),
       ),
     );
   }

@@ -32,33 +32,40 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: screenHeight,
-              child: Stack(children: [
+              child: Stack(
+                  children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      height: 300,
+                      height: 220,
                       width: 148,
                       child: Image.asset(
                         'assets/asset1.png',
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      height: 300,
-                      width: 170,
-                      child: Image.asset(
-                        'assets/asset2.png',
-                        fit: BoxFit.fill,
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        alignment: Alignment.topRight,
+                        height: 255,
+                        width: 156,
+                        child: Image.asset(
+                          'assets/asset2.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     )
                   ],

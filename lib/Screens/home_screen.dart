@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:learnify/Screens/Courses/course_details.dart';
 import 'package:learnify/Screens/Profile/profile_screen.dart';
-import 'package:learnify/Screens/computer_basics.dart';
+import 'package:learnify/Screens/Courses/course_player.dart';
 
 import '../Colors/colors.dart';
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               child: Padding(
                 padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+                    const EdgeInsets.only(left: 25.0, right: 25.0, top: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -110,59 +111,88 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Color(0xfff002A32),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 20.0,
-                                  ),
-                                  child: Image.asset(
-                                    'assets/boy.png',
-                                  ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 30.0),
-                                      child: Container(
-                                        width: MediaQuery.sizeOf(context).width * 0.32,
-                                        child: Text(
-                                          'What would you like to learn today?',
-                                          style: GoogleFonts.lato(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.white),
-                                          overflow: TextOverflow.visible,
-                                          // Optional overflow behavior
-                                          softWrap: true,
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                double containerWidth = constraints.maxWidth;
+                                double containerHeight = constraints.maxHeight;
+                                return Container(
+                                  width: containerWidth,
+                                  height: containerHeight + 20,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 20.0,
+                                        ),
+                                        child: Image.asset(
+                                          'assets/boy.png',
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {},
-                                        label: Text(
-                                          "Get Started",
-                                          style: GoogleFonts.lato(
-                                              fontSize: 12,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                AppColors.primaryGreen,
-                                            foregroundColor: Colors.white),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                )
-                              ],
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 30.0),
+                                            child: Container(
+                                              width: MediaQuery
+                                                  .sizeOf(context)
+                                                  .width * 0.30,
+                                              child: Expanded(
+                                                child: Text(
+                                                  'What would you like to learn today?',
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: Colors.white),
+                                                  overflow: TextOverflow.visible,
+                                                  // Optional overflow behavior
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              width: 100,
+                                              height: 34,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                      AppColors.primaryGreen,
+                                                      minimumSize: Size(double.infinity, 60),
+                                                      foregroundColor: Colors
+                                                          .white),
+                                                  child: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                        "Get Started",
+                                                      style: GoogleFonts.lato(
+                                                            fontSize: 9.9,
+                                                            color: Colors.white,
+                                                            fontWeight: FontWeight
+                                                                .w500),
+                                                      ),
+                                                  ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
                             ),
                           )
                         ],
@@ -193,7 +223,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         _buttonLogos('assets/game.png', 'Games', 50),
                         _buttonLogos('assets/quiz.png', 'Quizzes', 35),
-                        _buttonLogos('assets/video.png', 'Videos', 35),
                       ],
                     ),
                   ),
@@ -314,19 +343,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     case 'Basics of Computer':
                       {
                         Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => ComputerBasics()));
+                            builder: (context) => CourseDetails(imageAsset:  'assets/course2.png', title: 'Basics of Computer', primaryColor: Color(0xfffA8506A), secondaryColor: Color(0xfffCE748F),)));
                         break;
                       }
                     case 'Ui Ux':
                       {
-                        // Navigator.pushReplacement(context, MaterialPageRoute(
-                        //     builder: (context) => ComputerBasics()));
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => CourseDetails(imageAsset: 'assets/course1.png', title: 'Basic UI/UX designing', primaryColor: Color(0xfff5D2872), secondaryColor: Color(0xfffA269C8),)));
                         break;
                       }
                     case 'Flutter':
                       {
-                        // Navigator.pushReplacement(context, MaterialPageRoute(
-                        //     builder: (context) => ComputerBasics()));
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => CourseDetails(imageAsset: 'assets/course3.png', title: 'Flutter', primaryColor: Color(0xfff0084E8), secondaryColor: Color(0xfff307CBB),)));
                         break;
                       }
                   }

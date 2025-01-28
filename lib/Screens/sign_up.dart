@@ -34,18 +34,18 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: screenHeight,
+             height: 800,
               child: Stack(children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      height: 300,
-                      width: 170,
+                      height: 220,
+                      width: 148,
                       child: Image.asset(
                         'assets/asset1.png',
                         fit: BoxFit.fill,
@@ -53,8 +53,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Container(
                       alignment: Alignment.topRight,
-                      height: 300,
-                      width: 170,
+                      height: 255,
+                      width: 156,
                       child: Image.asset(
                         'assets/asset2.png',
                         fit: BoxFit.fill,
@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
                   child: Form(
                     key: _formKey,
                     child: Container(
-                      padding: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -288,7 +288,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 35,
                           ),
                           ElevatedButton.icon(
                             onPressed: () {

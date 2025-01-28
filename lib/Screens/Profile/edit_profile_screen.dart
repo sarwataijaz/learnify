@@ -57,10 +57,15 @@ class EditProfileScreen extends StatelessWidget {
                   Positioned(
                     top: 190,
                     left: 0,
-                    right: 280,
-                    child: IconButton(
-                        onPressed:() => Navigator.pop(context),
-                        icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white, size: 18,)
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 250.0,),
+                      child: Container(
+                        child: IconButton(
+                            onPressed:() => Navigator.pop(context),
+                            icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white, size: 18,)
+                        ),
+                      ),
                     )
                   ),
                   Positioned(
@@ -68,7 +73,7 @@ class EditProfileScreen extends StatelessWidget {
                     left: 0,
                     right: 0,
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 50),
+                      margin: EdgeInsets.symmetric(horizontal: 50, ),
                       width: MediaQuery.sizeOf(context).width,
                       child: Column(
                         children: [
