@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:learnify/Screens/sign_in.dart';
+import 'package:learnify/Screens/Auth/sign_in.dart';
 
 import '../Colors/colors.dart';
 

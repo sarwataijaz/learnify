@@ -1,28 +1,29 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learnify/Auth/database_service.dart';
 import 'package:learnify/Colors/colors.dart';
-import 'package:learnify/Screens/sign_in.dart';
+import 'package:learnify/Screens/home_screen.dart';
+import 'package:learnify/Screens/Auth/sign_up.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+import '../../Firebase/database_service.dart';
+import '../../Navigations/bottom_navigation.dart';
+
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignInState extends State<SignIn> {
+
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _fullNameController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
-
-  DatabaseService _db = DatabaseService();
   bool _hidePassword = true;
   bool _isLoading = false;
+
+  DatabaseService _db = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +32,18 @@ class _SignUpState extends State<SignUp> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
             SizedBox(
-             height: 800,
-              child: Stack(children: [
+              height: screenHeight,
+              child: Stack(
+                  children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
@@ -51,13 +54,18 @@ class _SignUpState extends State<SignUp> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      height: 255,
-                      width: 156,
-                      child: Image.asset(
-                        'assets/asset2.png',
-                        fit: BoxFit.fill,
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        alignment: Alignment.topRight,
+                        height: 255,
+                        width: 156,
+                        child: Image.asset(
+                          'assets/asset2.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     )
                   ],
@@ -65,22 +73,33 @@ class _SignUpState extends State<SignUp> {
                 Align(
                   alignment: Alignment(0, -0.45),
                   child: Text(
-                    'Create Account',
+                    'Hello!',
                     style: GoogleFonts.lato(
-                        fontSize: 30,
+                        fontSize: 36,
                         color: Colors.black,
                         fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment(0, -0.35),
+                  child: Text(
+                    'Login to your account',
+                    style: GoogleFonts.lato(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 260,
+                  top: 320,
                   child: Form(
                     key: _formKey,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.all(20.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -119,102 +138,6 @@ class _SignUpState extends State<SignUp> {
                                   padding: const EdgeInsets.only(
                                       left: 10.0, top: 10.0),
                                   child: Icon(Icons.email_rounded, color: Colors.black,),
-                                ),
-                                hintStyle: GoogleFonts.lato(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xfffD4D4D4),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Full Name',
-                            style: GoogleFonts.lato(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              // Cylindrical border
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  // Shadow color
-                                  spreadRadius: 2,
-                                  // How far the shadow spreads
-                                  blurRadius: 10,
-                                  // How soft the shadow is
-                                  offset: Offset(0,
-                                      5), // Offset: (x, y) - horizontal and vertical
-                                ),
-                              ],
-                            ),
-                            child: TextField(
-                              controller: _fullNameController,
-                              decoration: InputDecoration(
-                                hintText: 'your name',
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10.0, top: 10.0),
-                                  child: Icon(Icons.person, color: Colors.black,),
-                                ),
-                                hintStyle: GoogleFonts.lato(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xfffD4D4D4),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Phone Number',
-                            style: GoogleFonts.lato(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              // Cylindrical border
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  // Shadow color
-                                  spreadRadius: 2,
-                                  // How far the shadow spreads
-                                  blurRadius: 10,
-                                  // How soft the shadow is
-                                  offset: Offset(0,
-                                      5), // Offset: (x, y) - horizontal and vertical
-                                ),
-                              ],
-                            ),
-                            child: TextField(
-                              controller: _phoneNumberController,
-                              keyboardType: TextInputType.number, // Sets the keyboard to numeric
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly, // Allows only numeric input
-                              ],
-                              decoration: InputDecoration(
-                                hintText: 'Phone Number',
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10.0, top: 10.0),
-                                  child: Icon(Icons.call, color: Colors.black,),
                                 ),
                                 hintStyle: GoogleFonts.lato(
                                   fontSize: 16,
@@ -288,30 +211,60 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           const SizedBox(
-                            height: 35,
+                            height: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Forgot password?',
+                              style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: _isLoading
+                                ? null // Disable button while loading
+                                : () {
                               setState(() {
                                 _isLoading = true;
                               });
-                              _storeData();
+                              _login();
                             },
-                            label: _isLoading ?  CircularProgressIndicator(backgroundColor: AppColors.background,)
-                                :  Text(
-                              "Sign Up",
+                            label: _isLoading
+                                ? Text(
+                              "Signing In...",
                               style: GoogleFonts.lato(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                                : Text(
+                              "Sign In",
+                              style: GoogleFonts.lato(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryGreen,
                                 foregroundColor: Colors.white),
-                            icon: const Icon(
-                              Icons.new_label_outlined,
-                              color: Colors.white,
-                            ),
+                            icon: _isLoading
+                                ? SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                backgroundColor: AppColors.background,
+                              ),
+                            )
+                                : Icon(Icons.login, color: Colors.white,),
                           ),
                           const SizedBox(
                             height: 10,
@@ -321,26 +274,25 @@ class _SignUpState extends State<SignUp> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: "Already have an account? ",
+                                      text: "Don't have an account? ",
                                       style: GoogleFonts.lato(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500)
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500)
                                   ),
                                   TextSpan(
-                                    text: "Sign in",
-                                    style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        color: AppColors.primaryGreen,
-                                        fontWeight: FontWeight.w500,
+                                      text: "Sign up",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 14,
+                                          color: AppColors.primaryGreen,
+                                          fontWeight: FontWeight.w500,
                                         decoration: TextDecoration.underline
-                                    ),
+                                      ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                      print('going to signin page');
                                         Navigator.pushReplacement(
                                           context,
-                                          MaterialPageRoute(builder: (context) => SignIn()),
+                                          MaterialPageRoute(builder: (context) => SignUp()),
                                         );
                                       },
                                   ),
@@ -361,39 +313,48 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  _storeData() async {
+  _login() async {
     String msg = '';
-    try {
-      if (_formKey.currentState!.validate()) {
-        msg = await _db.addUser(email: _emailController.text,
-            name: _fullNameController.text,
-            number: int.parse(_phoneNumberController.text),
-            password: _passwordController.text);
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true; // Start loading indicator
+      });
+
+      try {
+        msg = await _db.verifyCredentials(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
         if (msg == 'success') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(
-              'Data stored successfully, Sign In to continue',
-              style: TextStyle(fontSize: 16, color: Colors.black),),
-              backgroundColor: Colors.white,),
-          );
+          setState(() {
+            _isLoading = false;
+          });
+          String name = await _db.getUserFullName(_emailController.text);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => SignIn()),
+            MaterialPageRoute(builder: (context) => BottomNavigation(name: name)),
           );
+          return; // Stop execution here to prevent setting _isLoading to false
         }
-      } else {
-        msg = 'Please fill out all the fields!';
+      } catch (e) {
+        msg = "An error occurred: $e";
       }
-    } catch(e) {
-     msg = e.toString();
+    } else {
+      msg = "Please fill out both fields.";
     }
+
     setState(() {
       _isLoading = false;
     });
+
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(msg,
-          style: TextStyle(fontSize: 14, color: Colors.black),),
-          backgroundColor: Colors.white,)
+      SnackBar(
+        content: Text(
+          msg,
+          style: TextStyle(fontSize: 16, color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ),
     );
   }
 }

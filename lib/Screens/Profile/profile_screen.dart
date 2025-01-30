@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learnify/Auth/database_service.dart';
+import 'package:learnify/Firebase/database_service.dart';
 import 'package:learnify/Colors/colors.dart';
 import 'package:learnify/Screens/Profile/edit_profile_screen.dart';
 

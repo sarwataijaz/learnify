@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:learnify/Screens/Courses/course_details.dart';
 import 'package:learnify/Screens/Profile/profile_screen.dart';
 import 'package:learnify/Screens/Courses/course_player.dart';
+import 'package:learnify/Screens/Quizzes/computer_quiz.dart';
 
 import '../Colors/colors.dart';
+import 'Games/light_bulb_game.dart';
 
 class HomeScreen extends StatefulWidget {
   final String name;
@@ -221,8 +223,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buttonLogos('assets/game.png', 'Games', 50),
-                        _buttonLogos('assets/quiz.png', 'Quizzes', 35),
+                        InkWell(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => LightBulb())),
+                            child: _buttonLogos('assets/game.png', 'Games', 50),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ComputerQuiz())),
+                            child: _buttonLogos('assets/quiz.png', 'Quizzes', 35)
+                        ),
                       ],
                     ),
                   ),
